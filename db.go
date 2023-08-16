@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -18,6 +19,7 @@ import (
 var DB *gorm.DB
 
 func init() {
+	fmt.Println("DB.go initialized...")
 	var err error
 	if DB, err = OpenTestConnection(); err != nil {
 		log.Printf("failed to connect database, got error %v\n", err)
@@ -42,12 +44,14 @@ func init() {
 }
 
 func OpenTestConnection() (db *gorm.DB, err error) {
+	fmt.Println("dbDSN", os.Getenv("GORM_DSN"))
+	fmt.Println("Gorm_Dialect", os.Getenv("GORM_DIALECT"))
 	dbDSN := os.Getenv("GORM_DSN")
 	switch os.Getenv("GORM_DIALECT") {
 	case "mysql":
 		log.Println("testing mysql...")
 		if dbDSN == "" {
-			dbDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
+			dbDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 		}
 		db, err = gorm.Open(mysql.Open(dbDSN), &gorm.Config{})
 	case "postgres":

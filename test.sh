@@ -2,10 +2,10 @@
 
 dialects=("sqlite" "mysql" "postgres" "sqlserver")
 
-if [ "$GORM_ENABLE_CACHE" = "" ]
-then
-rm -rf gorm
-fi
+# if [ "$GORM_ENABLE_CACHE" = "" ]
+# then
+#  rm -rf gorm
+# fi
 
 [ -d gorm ] || (echo "git clone --depth 1 -b $(cat main_test.go | grep GORM_BRANCH | awk '{print $3}') $(cat main_test.go | grep GORM_REPO | awk '{print $3}')"; git clone --depth 1 -b $(cat main_test.go | grep GORM_BRANCH | awk '{print $3}') $(cat main_test.go | grep GORM_REPO | awk '{print $3}'))
 

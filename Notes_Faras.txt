@@ -1,0 +1,34 @@
+docker exec -it playground_mssql_1 /opt/mssql-tools/bin/sqlcmd -S localhost -U gorm -P LoremIpsum86
+
+1> select name from sys.databases
+2> go
+-------------------------------------------------
+1> use gorm
+2> go
+-------------------------------------------------
+1> SELECT name from sys.tables
+2> go
+-------------------------------------------------
+1> select * from users
+2> go
+
+*********************************************************************
+
+sudo apt-get install mysql-client
+
+docker exec -it playground_mysql_1 bash
+
+bash-4.4# mysql -ugorm -p    
+Enter password: 
+mysql> show databases;
+mysql> use gorm;
+mysql> show tables;
+mysql> select * from users;
+
+*********************************************************************
+
+docker exec -it playground_postgres_1 bash
+root@d0c06a5561fc:/# psql -U gorm
+gorm=# \l                                                       <list all databases>
+gorm=# \dt                                                      <list all database tables>
+gorm=# select * from users;
