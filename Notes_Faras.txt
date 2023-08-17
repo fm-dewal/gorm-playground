@@ -19,7 +19,7 @@ sudo apt-get install mysql-client
 docker exec -it playground_mysql_1 bash
 
 bash-4.4# mysql -ugorm -p    
-Enter password: 
+Enter password: <gorm>
 mysql> show databases;
 mysql> use gorm;
 mysql> show tables;
@@ -32,3 +32,4 @@ root@d0c06a5561fc:/# psql -U gorm
 gorm=# \l                                                       <list all databases>
 gorm=# \dt                                                      <list all database tables>
 gorm=# select * from users;
+https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/
