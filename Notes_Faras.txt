@@ -1,5 +1,7 @@
-docker exec -it playground_mssql_1 /opt/mssql-tools/bin/sqlcmd -S localhost -U gorm -P LoremIpsum86
+https://medium.com/@farasmohandewal/dockerized-databases-d1e55d23f71a
 
+docker exec -it playground_mssql_1 /opt/mssql-tools/bin/sqlcmd -S localhost -U gorm -P LoremIpsum86
+https://hub.docker.com/r/mcmoe/mssqldocker
 1> select name from sys.databases
 2> go
 -------------------------------------------------
@@ -33,3 +35,32 @@ gorm=# \l                                                       <list all databa
 gorm=# \dt                                                      <list all database tables>
 gorm=# select * from users;
 https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/
+
+
+***********************************************************************
+
+sudo apt-get install sqlite3
+/tmp$ sqlite3 ./gorm.db
+sqlite> .tables
+sqlite> .schema users
+sqlite> select * from users;
+
+UUID
+
+go get github.com/satori/go.uuid
+go get github.com/jinzhu/gorm
+type Base struct {
+   ID uuid.UUID  `gorm:"type:char(36);primary_key"`
+   // add more common columns like CreatedAt
+   // CreatedAt *time.Time
+   // ...
+}
+// This functions are called before creating Base
+func (base *Base) BeforeCreate(scope *gorm.Scope) error {
+   return scope.SetColumn("ID", uuid.NewV4())
+}
+type Post struct {
+   Base
+   Content string `gorm:"type:text;not null"`
+   Author string `gorm:"type:varchar(100);not null"`
+}

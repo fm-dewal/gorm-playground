@@ -1,0 +1,197 @@
+playground_mysql_1 is up-to-date
+playground_mssql_1 is up-to-date
+playground_postgres_1 is up-to-date
+starting...
+testing sqlite...
+DB.go initialized...
+dbDSN 
+Gorm_Dialect sqlite
+2023/08/16 11:46:57 testing sqlite3...
+
+2023/08/16 11:46:58 [32m/home/dewal/go/pkg/mod/gorm.io/driver/sqlite@v1.5.2/migrator.go:45 [33mSLOW SQL >= 200ms
+[0m[31;1m[243.651ms] [33m[rows:0][35m DROP TABLE IF EXISTS `user_speaks`[0m
+=== RUN   TestGORM
+
+2023/08/16 11:47:00 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[0.478ms] [34;1m[rows:1][0m INSERT INTO `toys` (`created_at`,`updated_at`,`deleted_at`,`name`,`owner_id`,`owner_type`) VALUES ("2023-08-16 11:47:00.026","2023-08-16 11:47:00.026",NULL,"Baseball","1","pets") ON CONFLICT (`id`) DO UPDATE SET `owner_type`=`excluded`.`owner_type`,`owner_id`=`excluded`.`owner_id` RETURNING `id`
+
+2023/08/16 11:47:00 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[1.162ms] [34;1m[rows:1][0m INSERT INTO `pets` (`created_at`,`updated_at`,`deleted_at`,`user_id`,`name`) VALUES ("2023-08-16 11:47:00.025","2023-08-16 11:47:00.025",NULL,1,"Rikhu") ON CONFLICT (`id`) DO UPDATE SET `user_id`=`excluded`.`user_id` RETURNING `id`
+
+2023/08/16 11:47:00 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[0.322ms] [34;1m[rows:1][0m INSERT INTO `toys` (`created_at`,`updated_at`,`deleted_at`,`name`,`owner_id`,`owner_type`) VALUES ("2023-08-16 11:47:00.027","2023-08-16 11:47:00.027",NULL,"Baseball","1","users") ON CONFLICT (`id`) DO UPDATE SET `owner_type`=`excluded`.`owner_type`,`owner_id`=`excluded`.`owner_id` RETURNING `id`
+
+2023/08/16 11:47:00 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[87.688ms] [34;1m[rows:1][0m INSERT INTO `users` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`company_id`,`manager_id`,`active`) VALUES ("2023-08-16 11:47:00.024","2023-08-16 11:47:00.024",NULL,"Faras Mohan Dewal",34,NULL,NULL,NULL,true) RETURNING `id`
+
+2023/08/16 11:47:00 [32m/home/dewal/workspace/playground/main_test.go:44
+[0m[33m[0.534ms] [34;1m[rows:1][0m SELECT * FROM `users` WHERE `users`.`id` = 1 AND `users`.`deleted_at` IS NULL ORDER BY `users`.`id` LIMIT 1
+ - Created User :  1 true 34 Faras Mohan Dewal [] []
+--- PASS: TestGORM (0.09s)
+PASS
+ok  	gorm.io/playground	3.343s
+testing mysql...
+DB.go initialized...
+dbDSN 
+Gorm_Dialect mysql
+2023/08/16 11:47:02 testing mysql...
+
+2023/08/16 11:47:03 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[1289.817ms] [33m[rows:0][35m DROP TABLE IF EXISTS `user_speaks` CASCADE[0m
+
+2023/08/16 11:47:03 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[454.849ms] [33m[rows:0][35m DROP TABLE IF EXISTS `user_friends` CASCADE[0m
+
+2023/08/16 11:47:04 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[503.100ms] [33m[rows:0][35m DROP TABLE IF EXISTS `languages` CASCADE[0m
+
+2023/08/16 11:47:04 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[334.437ms] [33m[rows:0][35m DROP TABLE IF EXISTS `users` CASCADE[0m
+
+2023/08/16 11:47:05 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[422.729ms] [33m[rows:0][35m DROP TABLE IF EXISTS `toys` CASCADE[0m
+
+2023/08/16 11:47:05 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[410.698ms] [33m[rows:0][35m DROP TABLE IF EXISTS `pets` CASCADE[0m
+
+2023/08/16 11:47:06 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[443.582ms] [33m[rows:0][35m DROP TABLE IF EXISTS `accounts` CASCADE[0m
+
+2023/08/16 11:47:06 [32m/home/dewal/go/pkg/mod/gorm.io/driver/mysql@v1.5.1/migrator.go:178 [33mSLOW SQL >= 200ms
+[0m[31;1m[444.181ms] [33m[rows:0][35m DROP TABLE IF EXISTS `companies` CASCADE[0m
+
+2023/08/16 11:47:07 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[702.183ms] [33m[rows:0][35m CREATE TABLE `companies` (`id` bigint AUTO_INCREMENT,`name` longtext,PRIMARY KEY (`id`))[0m
+
+2023/08/16 11:47:08 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[1318.128ms] [33m[rows:0][35m CREATE TABLE `users` (`id` bigint unsigned AUTO_INCREMENT,`created_at` datetime(3) NULL,`updated_at` datetime(3) NULL,`deleted_at` datetime(3) NULL,`name` longtext,`age` bigint unsigned,`birthday` datetime(3) NULL,`company_id` bigint,`manager_id` bigint unsigned,`active` boolean,PRIMARY KEY (`id`),INDEX `idx_users_deleted_at` (`deleted_at`),CONSTRAINT `fk_users_company` FOREIGN KEY (`company_id`) REFERENCES `companies`(`id`),CONSTRAINT `fk_users_team` FOREIGN KEY (`manager_id`) REFERENCES `users`(`id`))[0m
+
+2023/08/16 11:47:09 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[910.790ms] [33m[rows:0][35m CREATE TABLE `accounts` (`id` bigint unsigned AUTO_INCREMENT,`created_at` datetime(3) NULL,`updated_at` datetime(3) NULL,`deleted_at` datetime(3) NULL,`user_id` bigint unsigned,`number` longtext,PRIMARY KEY (`id`),INDEX `idx_accounts_deleted_at` (`deleted_at`),CONSTRAINT `fk_users_account` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`))[0m
+
+2023/08/16 11:47:10 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[880.943ms] [33m[rows:0][35m CREATE TABLE `pets` (`id` bigint unsigned AUTO_INCREMENT,`created_at` datetime(3) NULL,`updated_at` datetime(3) NULL,`deleted_at` datetime(3) NULL,`user_id` bigint unsigned,`name` longtext,PRIMARY KEY (`id`),INDEX `idx_pets_deleted_at` (`deleted_at`),CONSTRAINT `fk_users_pets` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`))[0m
+
+2023/08/16 11:47:11 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[612.966ms] [33m[rows:0][35m CREATE TABLE `toys` (`id` bigint unsigned AUTO_INCREMENT,`created_at` datetime(3) NULL,`updated_at` datetime(3) NULL,`deleted_at` datetime(3) NULL,`name` longtext,`owner_id` bigint unsigned,`owner_type` longtext,PRIMARY KEY (`id`),INDEX `idx_toys_deleted_at` (`deleted_at`))[0m
+
+2023/08/16 11:47:11 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[926.255ms] [33m[rows:0][35m CREATE TABLE `user_friends` (`user_id` bigint unsigned,`friend_id` bigint unsigned,PRIMARY KEY (`user_id`,`friend_id`),CONSTRAINT `fk_user_friends_user` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),CONSTRAINT `fk_user_friends_friends` FOREIGN KEY (`friend_id`) REFERENCES `users`(`id`))[0m
+
+2023/08/16 11:47:12 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[691.472ms] [33m[rows:0][35m CREATE TABLE `languages` (`code` varchar(191),`name` longtext,PRIMARY KEY (`code`))[0m
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[1048.540ms] [33m[rows:0][35m CREATE TABLE `user_speaks` (`user_id` bigint unsigned,`language_code` varchar(191),PRIMARY KEY (`user_id`,`language_code`),CONSTRAINT `fk_user_speaks_user` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),CONSTRAINT `fk_user_speaks_language` FOREIGN KEY (`language_code`) REFERENCES `languages`(`code`))[0m
+=== RUN   TestGORM
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[1.624ms] [34;1m[rows:1][0m INSERT INTO `toys` (`created_at`,`updated_at`,`deleted_at`,`name`,`owner_id`,`owner_type`) VALUES ('2023-08-16 11:47:13.753','2023-08-16 11:47:13.753',NULL,'Baseball','1','pets') ON DUPLICATE KEY UPDATE `owner_type`=VALUES(`owner_type`),`owner_id`=VALUES(`owner_id`)
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[3.782ms] [34;1m[rows:1][0m INSERT INTO `pets` (`created_at`,`updated_at`,`deleted_at`,`user_id`,`name`) VALUES ('2023-08-16 11:47:13.751','2023-08-16 11:47:13.751',NULL,1,'Rikhu') ON DUPLICATE KEY UPDATE `user_id`=VALUES(`user_id`)
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[0.787ms] [34;1m[rows:1][0m INSERT INTO `toys` (`created_at`,`updated_at`,`deleted_at`,`name`,`owner_id`,`owner_type`) VALUES ('2023-08-16 11:47:13.755','2023-08-16 11:47:13.755',NULL,'Baseball','1','users') ON DUPLICATE KEY UPDATE `owner_type`=VALUES(`owner_type`),`owner_id`=VALUES(`owner_id`)
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[115.055ms] [34;1m[rows:1][0m INSERT INTO `users` (`created_at`,`updated_at`,`deleted_at`,`name`,`age`,`birthday`,`company_id`,`manager_id`,`active`) VALUES ('2023-08-16 11:47:13.748','2023-08-16 11:47:13.748',NULL,'Faras Mohan Dewal',34,NULL,NULL,NULL,true)
+
+2023/08/16 11:47:13 [32m/home/dewal/workspace/playground/main_test.go:44
+[0m[33m[1.285ms] [34;1m[rows:1][0m SELECT * FROM `users` WHERE `users`.`id` = 1 AND `users`.`deleted_at` IS NULL ORDER BY `users`.`id` LIMIT 1
+ - Created User :  1 true 34 Faras Mohan Dewal [] []
+--- PASS: TestGORM (0.12s)
+PASS
+ok  	gorm.io/playground	12.656s
+testing postgres...
+DB.go initialized...
+dbDSN 
+Gorm_Dialect postgres
+2023/08/16 11:47:16 testing postgres...
+
+2023/08/16 11:47:17 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[283.667ms] [33m[rows:0][35m CREATE TABLE "toys" ("id" bigserial,"created_at" timestamptz,"updated_at" timestamptz,"deleted_at" timestamptz,"name" text,"owner_id" bigint,"owner_type" text,PRIMARY KEY ("id"))[0m
+
+2023/08/16 11:47:17 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[307.785ms] [33m[rows:0][35m CREATE TABLE "companies" ("id" bigserial,"name" text,PRIMARY KEY ("id"))[0m
+
+2023/08/16 11:47:18 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[249.387ms] [33m[rows:0][35m CREATE TABLE "users" ("id" bigserial,"created_at" timestamptz,"updated_at" timestamptz,"deleted_at" timestamptz,"name" text,"age" bigint,"birthday" timestamptz,"company_id" bigint,"manager_id" bigint,"active" boolean,PRIMARY KEY ("id"),CONSTRAINT "fk_users_company" FOREIGN KEY ("company_id") REFERENCES "companies"("id"),CONSTRAINT "fk_users_team" FOREIGN KEY ("manager_id") REFERENCES "users"("id"))[0m
+
+2023/08/16 11:47:18 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[390.501ms] [33m[rows:0][35m CREATE TABLE "accounts" ("id" bigserial,"created_at" timestamptz,"updated_at" timestamptz,"deleted_at" timestamptz,"user_id" bigint,"number" text,PRIMARY KEY ("id"),CONSTRAINT "fk_users_account" FOREIGN KEY ("user_id") REFERENCES "users"("id"))[0m
+
+2023/08/16 11:47:18 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:122 [33mSLOW SQL >= 200ms
+[0m[31;1m[320.859ms] [33m[rows:0][35m CREATE INDEX IF NOT EXISTS "idx_accounts_deleted_at" ON "accounts" ("deleted_at")[0m
+
+2023/08/16 11:47:19 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[222.170ms] [33m[rows:0][35m CREATE TABLE "languages" ("code" text,"name" text,PRIMARY KEY ("code"))[0m
+
+2023/08/16 11:47:19 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[263.610ms] [33m[rows:0][35m CREATE TABLE "user_speaks" ("user_id" bigint,"language_code" text,PRIMARY KEY ("user_id","language_code"),CONSTRAINT "fk_user_speaks_language" FOREIGN KEY ("language_code") REFERENCES "languages"("code"),CONSTRAINT "fk_user_speaks_user" FOREIGN KEY ("user_id") REFERENCES "users"("id"))[0m
+
+2023/08/16 11:47:19 [32m/home/dewal/go/pkg/mod/gorm.io/driver/postgres@v1.5.2/migrator.go:157 [33mSLOW SQL >= 200ms
+[0m[31;1m[274.318ms] [33m[rows:0][35m CREATE TABLE "pets" ("id" bigserial,"created_at" timestamptz,"updated_at" timestamptz,"deleted_at" timestamptz,"user_id" bigint,"name" text,PRIMARY KEY ("id"),CONSTRAINT "fk_users_pets" FOREIGN KEY ("user_id") REFERENCES "users"("id"))[0m
+=== RUN   TestGORM
+
+2023/08/16 11:47:20 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[1.764ms] [34;1m[rows:1][0m INSERT INTO "toys" ("created_at","updated_at","deleted_at","name","owner_id","owner_type") VALUES ('2023-08-16 11:47:20.005','2023-08-16 11:47:20.005',NULL,'Baseball','1','pets') ON CONFLICT ("id") DO UPDATE SET "owner_type"="excluded"."owner_type","owner_id"="excluded"."owner_id" RETURNING "id"
+
+2023/08/16 11:47:20 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[4.099ms] [34;1m[rows:1][0m INSERT INTO "pets" ("created_at","updated_at","deleted_at","user_id","name") VALUES ('2023-08-16 11:47:20.003','2023-08-16 11:47:20.003',NULL,1,'Rikhu') ON CONFLICT ("id") DO UPDATE SET "user_id"="excluded"."user_id" RETURNING "id"
+
+2023/08/16 11:47:20 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[1.138ms] [34;1m[rows:1][0m INSERT INTO "toys" ("created_at","updated_at","deleted_at","name","owner_id","owner_type") VALUES ('2023-08-16 11:47:20.008','2023-08-16 11:47:20.008',NULL,'Baseball','1','users') ON CONFLICT ("id") DO UPDATE SET "owner_type"="excluded"."owner_type","owner_id"="excluded"."owner_id" RETURNING "id"
+
+2023/08/16 11:47:20 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[49.256ms] [34;1m[rows:1][0m INSERT INTO "users" ("created_at","updated_at","deleted_at","name","age","birthday","company_id","manager_id","active") VALUES ('2023-08-16 11:47:20.002','2023-08-16 11:47:20.002',NULL,'Faras Mohan Dewal',34,NULL,NULL,NULL,true) RETURNING "id"
+
+2023/08/16 11:47:20 [32m/home/dewal/workspace/playground/main_test.go:44
+[0m[33m[2.275ms] [34;1m[rows:1][0m SELECT * FROM "users" WHERE "users"."id" = 1 AND "users"."deleted_at" IS NULL ORDER BY "users"."id" LIMIT 1
+ - Created User :  1 true 34 Faras Mohan Dewal [] []
+--- PASS: TestGORM (0.05s)
+PASS
+ok  	gorm.io/playground	4.655s
+testing sqlserver...
+DB.go initialized...
+dbDSN 
+Gorm_Dialect sqlserver
+2023/08/16 11:47:22 testing sqlserver...
+
+2023/08/16 11:47:23 [32m/home/dewal/go/pkg/mod/gorm.io/driver/sqlserver@v1.5.1/migrator.go:87 [33mSLOW SQL >= 200ms
+[0m[31;1m[221.569ms] [33m[rows:0][35m DROP TABLE IF EXISTS "companies"[0m
+
+2023/08/16 11:47:23 [32m/home/dewal/go/pkg/mod/gorm.io/driver/sqlserver@v1.5.1/migrator.go:82 [33mSLOW SQL >= 200ms
+[0m[31;1m[232.847ms] [33m[rows:0][35m ALTER TABLE pets DROP CONSTRAINT fk_users_pets;[0m
+
+2023/08/16 11:47:24 [32m/home/dewal/go/pkg/mod/gorm.io/driver/sqlserver@v1.5.1/migrator.go:87 [33mSLOW SQL >= 200ms
+[0m[31;1m[350.693ms] [33m[rows:0][35m DROP TABLE IF EXISTS "pets"[0m
+
+2023/08/16 11:47:24 [32m/home/dewal/go/pkg/mod/gorm.io/driver/sqlserver@v1.5.1/migrator.go:87 [33mSLOW SQL >= 200ms
+[0m[31;1m[445.104ms] [33m[rows:0][35m DROP TABLE IF EXISTS "toys"[0m
+
+2023/08/16 11:47:25 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[302.092ms] [33m[rows:0][35m CREATE TABLE "languages" ("code" nvarchar(256),"name" nvarchar(MAX),PRIMARY KEY ("code"))[0m
+
+2023/08/16 11:47:25 [32m/home/dewal/workspace/playground/db.go:101 [33mSLOW SQL >= 200ms
+[0m[31;1m[217.154ms] [33m[rows:0][35m CREATE TABLE "toys" ("id" bigint IDENTITY(1,1),"created_at" datetimeoffset,"updated_at" datetimeoffset,"deleted_at" datetimeoffset,"name" nvarchar(MAX),"owner_id" bigint,"owner_type" nvarchar(MAX),PRIMARY KEY ("id"))[0m
+=== RUN   TestGORM
+
+2023/08/16 11:47:26 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[3.366ms] [34;1m[rows:1][0m INSERT INTO "toys" ("created_at","updated_at","deleted_at","name","owner_id","owner_type") OUTPUT INSERTED."id" VALUES ('2023-08-16 11:47:26.107','2023-08-16 11:47:26.107',NULL,'Baseball','1','pets');
+
+2023/08/16 11:47:26 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[10.145ms] [34;1m[rows:1][0m INSERT INTO "pets" ("created_at","updated_at","deleted_at","user_id","name") OUTPUT INSERTED."id" VALUES ('2023-08-16 11:47:26.101','2023-08-16 11:47:26.101',NULL,1,'Rikhu');
+
+2023/08/16 11:47:26 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[3.264ms] [34;1m[rows:1][0m INSERT INTO "toys" ("created_at","updated_at","deleted_at","name","owner_id","owner_type") OUTPUT INSERTED."id" VALUES ('2023-08-16 11:47:26.111','2023-08-16 11:47:26.111',NULL,'Baseball','1','users');
+
+2023/08/16 11:47:26 [32m/home/dewal/workspace/playground/main_test.go:41
+[0m[33m[72.243ms] [34;1m[rows:1][0m INSERT INTO "users" ("created_at","updated_at","deleted_at","name","age","birthday","company_id","manager_id","active") OUTPUT INSERTED."id" VALUES ('2023-08-16 11:47:26.091','2023-08-16 11:47:26.091',NULL,'Faras Mohan Dewal',34,NULL,NULL,NULL,1);
+
+2023/08/16 11:47:26 [32m/home/dewal/workspace/playground/main_test.go:44
+[0m[33m[3.141ms] [34;1m[rows:1][0m SELECT * FROM "users" WHERE "users"."id" = 1 AND "users"."deleted_at" IS NULL ORDER BY "users"."id" OFFSET 0 ROW FETCH NEXT 1 ROWS ONLY
+ - Created User :  1 true 34 Faras Mohan Dewal [] []
+--- PASS: TestGORM (0.08s)
+PASS
+ok  	gorm.io/playground	4.858s

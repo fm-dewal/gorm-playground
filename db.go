@@ -24,23 +24,22 @@ func init() {
 	if DB, err = OpenTestConnection(); err != nil {
 		log.Printf("failed to connect database, got error %v\n", err)
 		os.Exit(1)
-	} else {
-		sqlDB, err := DB.DB()
-		if err == nil {
-			err = sqlDB.Ping()
-		}
-
-		if err != nil {
-			log.Printf("failed to connect database, got error %v\n", err)
-		}
-
-		RunMigrations()
-		if DB.Dialector.Name() == "sqlite" {
-			DB.Exec("PRAGMA foreign_keys = ON")
-		}
-
-		DB.Logger = DB.Logger.LogMode(logger.Info)
 	}
+	sqlDB, err := DB.DB()
+	if err == nil {
+		err = sqlDB.Ping()
+	}
+
+	if err != nil {
+		log.Printf("failed to connect database, got error %v\n", err)
+	}
+
+	// RunMigrations()
+	if DB.Dialector.Name() == "sqlite" {
+		DB.Exec("PRAGMA foreign_keys = ON")
+	}
+
+	DB.Logger = DB.Logger.LogMode(logger.Info)
 }
 
 func OpenTestConnection() (db *gorm.DB, err error) {
@@ -87,7 +86,15 @@ func OpenTestConnection() (db *gorm.DB, err error) {
 
 func RunMigrations() {
 	var err error
-	allModels := []interface{}{&User{}, &Account{}, &Pet{}, &Company{}, &Toy{}, &Language{}}
+	allModels := []interface{}{
+		&User{},
+		&Account{},
+		&Pet{},
+		&Company{},
+		&Toy{},
+		&Language{},
+		&CreditCard{},
+	}
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(allModels), func(i, j int) { allModels[i], allModels[j] = allModels[j], allModels[i] })
 
