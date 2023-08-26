@@ -1,0 +1,66 @@
+https://medium.com/@farasmohandewal/dockerized-databases-d1e55d23f71a
+
+docker exec -it playground_mssql_1 /opt/mssql-tools/bin/sqlcmd -S localhost -U gorm -P LoremIpsum86
+https://hub.docker.com/r/mcmoe/mssqldocker
+1> select name from sys.databases
+2> go
+-------------------------------------------------
+1> use gorm
+2> go
+-------------------------------------------------
+1> SELECT name from sys.tables
+2> go
+-------------------------------------------------
+1> select * from users
+2> go
+
+*********************************************************************
+
+sudo apt-get install mysql-client
+
+docker exec -it playground_mysql_1 bash
+
+bash-4.4# mysql -ugorm -p    
+Enter password: <gorm>
+mysql> show databases;
+mysql> use gorm;
+mysql> show tables;
+mysql> select * from users;
+
+*********************************************************************
+
+docker exec -it playground_postgres_1 bash
+root@d0c06a5561fc:/# psql -U gorm
+gorm=# \l                                                       <list all databases>
+gorm=# \dt                                                      <list all database tables>
+gorm=# select * from users;
+https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/
+
+
+***********************************************************************
+
+sudo apt-get install sqlite3
+/tmp$ sqlite3 ./gorm.db
+sqlite> .tables
+sqlite> .schema users
+sqlite> select * from users;
+
+UUID
+
+go get github.com/satori/go.uuid
+go get github.com/jinzhu/gorm
+type Base struct {
+   ID uuid.UUID  `gorm:"type:char(36);primary_key"`
+   // add more common columns like CreatedAt
+   // CreatedAt *time.Time
+   // ...
+}
+// This functions are called before creating Base
+func (base *Base) BeforeCreate(scope *gorm.Scope) error {
+   return scope.SetColumn("ID", uuid.NewV4())
+}
+type Post struct {
+   Base
+   Content string `gorm:"type:text;not null"`
+   Author string `gorm:"type:varchar(100);not null"`
+}

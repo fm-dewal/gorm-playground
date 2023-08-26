@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -18,36 +19,38 @@ import (
 var DB *gorm.DB
 
 func init() {
+	fmt.Println("DB.go initialized...")
 	var err error
 	if DB, err = OpenTestConnection(); err != nil {
 		log.Printf("failed to connect database, got error %v\n", err)
 		os.Exit(1)
-	} else {
-		sqlDB, err := DB.DB()
-		if err == nil {
-			err = sqlDB.Ping()
-		}
-
-		if err != nil {
-			log.Printf("failed to connect database, got error %v\n", err)
-		}
-
-		RunMigrations()
-		if DB.Dialector.Name() == "sqlite" {
-			DB.Exec("PRAGMA foreign_keys = ON")
-		}
-
-		DB.Logger = DB.Logger.LogMode(logger.Info)
 	}
+	sqlDB, err := DB.DB()
+	if err == nil {
+		err = sqlDB.Ping()
+	}
+
+	if err != nil {
+		log.Printf("failed to connect database, got error %v\n", err)
+	}
+
+	// RunMigrations()
+	if DB.Dialector.Name() == "sqlite" {
+		DB.Exec("PRAGMA foreign_keys = ON")
+	}
+
+	DB.Logger = DB.Logger.LogMode(logger.Info)
 }
 
 func OpenTestConnection() (db *gorm.DB, err error) {
+	fmt.Println("dbDSN", os.Getenv("GORM_DSN"))
+	fmt.Println("Gorm_Dialect", os.Getenv("GORM_DIALECT"))
 	dbDSN := os.Getenv("GORM_DSN")
 	switch os.Getenv("GORM_DIALECT") {
 	case "mysql":
 		log.Println("testing mysql...")
 		if dbDSN == "" {
-			dbDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
+			dbDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 		}
 		db, err = gorm.Open(mysql.Open(dbDSN), &gorm.Config{})
 	case "postgres":
@@ -83,7 +86,15 @@ func OpenTestConnection() (db *gorm.DB, err error) {
 
 func RunMigrations() {
 	var err error
-	allModels := []interface{}{&User{}, &Account{}, &Pet{}, &Company{}, &Toy{}, &Language{}}
+	allModels := []interface{}{
+		&User{},
+		&Account{},
+		&Pet{},
+		&Company{},
+		&Toy{},
+		&Language{},
+		&CreditCard{},
+	}
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(allModels), func(i, j int) { allModels[i], allModels[j] = allModels[j], allModels[i] })
 
